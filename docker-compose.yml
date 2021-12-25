@@ -15,7 +15,7 @@ services:
       - ./postgres:/docker-entrypoint-initdb.d
 
   spark:
-    image: 'pypark_postgres:latest'
+    image: 'pyspark_postgres:latest'
     volumes:
       - type: bind
         source: ./data

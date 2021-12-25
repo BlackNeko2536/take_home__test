@@ -1,4 +1,5 @@
 import sys
+import time
  
 # total arguments
 n = len(sys.argv)
@@ -13,7 +14,7 @@ n = len(sys.argv)
     
 # print('\n') 
 
-
+time.sleep(2)
 
 for i in range(1, n):
 #     print(sys.argv[i],end = '\n')
@@ -145,11 +146,11 @@ table_name = table
 create_table_stm = 'CREATE TABLE IF NOT EXISTS {0} ({1});'.format(table_name,stm)
 res = connection.execute(create_table_stm)
 res = connection.execute("TRUNCATE TABLE  {}".format(table_name))
-for i in tqdm (range(0,len(df.collect())), desc="Loading..."):
+for i in tqdm (range(0,len(df.collect())), desc="Inserting Data to Database..."):
     #print(df.collect()[i][:])
     value_stm = 'INSERT INTO {} VALUES {}'.format(table_name,df.collect()[i][:])
     #print(value_stm)
     res = connection.execute(value_stm)
-
+time.sleep(2)
 print('End Process')
 sys.exit(0)
