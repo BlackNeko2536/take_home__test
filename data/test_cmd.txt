@@ -1,0 +1,7 @@
+docker exec jupyter_spark_spark_1 python /home/jovyan/data/gfg.py source=/home/jovyan/data/transaction.csv table=warunya database=bookstore
+
+docker-compose exec postgres_db psql --user root -d bookstore -c 'SELECT * FROM public.warunya limit 10'
+
+docker exec take_home_test_spark_1 python /home/jovyan/data/ETL.py source=/home/jovyan/data/transaction.csv table=customers database=warehouse
+
+docker-compose exec postgres_db  psql --user root -d warehouse -c 'SELECT * FROM public.customers limit 10' 

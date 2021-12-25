@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  
+  postgres_db:
+    image: postgres:13
+    environment:   
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: warehouse
+      POSTGRES_USER: root
+    ports:    
+      - 5433:5432
+    networks:
+      - app-tier
+    volumes:
+      - ./postgres:/docker-entrypoint-initdb.d
+
+  spark:
+    image: 'pypark_postgres:latest'
+    volumes:
+      - type: bind
+        source: ./data
+        target: /home/jovyan/data
+    ports:
+      - '4040:4040'
+      - '4041:4041'
+      - '8888:8888'
+    depends_on:
+      - postgres_db
+    networks:
+      -  app-tier
+    
+
+networks:
+  app-tier:
+    driver: bridge
